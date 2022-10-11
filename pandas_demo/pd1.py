@@ -1,6 +1,6 @@
 # %%
 import pandas as pd
-from pandas_demo import local_data_path
+from data import local_data_path
 
 # read csv data
 # pd.read_csv(data, index_col='年份') # 指定列名
