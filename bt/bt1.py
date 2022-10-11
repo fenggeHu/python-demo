@@ -10,16 +10,17 @@ from data import local_data_path
 # pd.read_csv(data, index_col=[0, 3]) # 按列索引指定多个索引
 
 symbol = 'SZ300760'
-ohlcv = pd.read_csv(local_data_path + symbol + "/day.csv", index_col='datetime', parse_dates=['datetime']) ##.loc['2022-01-01':'2022-01-31']
+ohlcv = pd.read_csv(local_data_path + symbol + "/day.csv", index_col='datetime',
+                    parse_dates=['datetime'])  ##.loc['2022-01-01':'2022-01-31']
 print(ohlcv)
 # %%
-st_date = datetime.datetime(2020,1,1)
-ed_date = datetime.datetime(2022,10,15)
+st_date = datetime.datetime(2021, 1, 1)
+ed_date = datetime.datetime(2022, 10, 15)
 datafeed = bt.feeds.PandasData(dataname=ohlcv, fromdate=st_date, todate=ed_date)
 # 实例化 cerebro
 cerebro = bt.Cerebro()
-cerebro.adddata(datafeed,name=symbol)
-print(f"{symbol} data loaded")
+cerebro.adddata(datafeed, name=symbol)
+# print(f"{symbol} data loaded")
 # %%
 # 初始资金
 cerebro.broker.setcash(200000.0)
@@ -34,7 +35,7 @@ cerebro.addanalyzer(bt.analyzers.DrawDown, _name='_DrawDown')  # 回撤
 
 # %%
 # 添加策略 TODO 写策略
-cerebro.addstrategy(bt.strategies.MA_CrossOver, printlog=True)
+cerebro.addstrategy(bt.strategies.MA_CrossOver)
 
 # %%
 # 启动回测
