@@ -1,7 +1,6 @@
 # %%
 import backtrader as bt
-import pandas as pd
-import datetime
+import pandas_demo as pd
 
 # dir
 path = '/Users/max/.tibet/cn/features/'
@@ -17,4 +16,4 @@ print(ohlcv)
 # %%
 
 # 实例化 cerebro
-# cerebro = bt.Cerebro()
+cerebro = bt.Cerebro()
