@@ -1,0 +1,6 @@
+pandas
+yfinance
+html5lib
+beautifulsoup4
+
+pandas-datareader
