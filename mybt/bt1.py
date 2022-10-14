@@ -2,6 +2,8 @@
 import pandas as pd
 import backtrader as bt
 import datetime
+
+import mybt.s1
 from data import local_data_path
 
 # read csv data
@@ -35,7 +37,7 @@ cerebro.addanalyzer(bt.analyzers.DrawDown, _name='_DrawDown')  # 回撤
 
 # %%
 # 添加策略 TODO 写策略
-cerebro.addstrategy(bt.strategies.MA_CrossOver)
+cerebro.addstrategy(mybt.s1.MyStrategy)
 
 # %%
 # 启动回测
