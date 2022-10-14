@@ -23,3 +23,26 @@ class MyStrategy(bt.Strategy):
             # Do something else
             pass
 
+    def notify_order(self, order):
+        # 未被处理的订单
+        if order.status in [order.Submitted, order.Accepted]:
+            return
+        # 已经处理的订单
+        if order.status in [order.Completed, order.Canceled, order.Margin]:
+            if order.isbuy():
+                self.log(
+                    'BUY EXECUTED, ref:%.0f，Price: %.2f, Cost: %.2f, Comm %.2f, Size: %.2f, Stock: %s' %
+                    (order.ref,  # 订单编号
+                     order.executed.price,  # 成交价
+                     order.executed.value,  # 成交额
+                     order.executed.comm,  # 佣金
+                     order.executed.size,  # 成交量
+                     order.data.name))  # 股票名称
+            else:  # Sell
+                self.log('SELL EXECUTED, ref:%.0f, Price: %.2f, Cost: %.2f, Comm %.2f, Size: %.2f, Stock: %s' %
+                         (order.ref,
+                          order.executed.price,
+                          order.executed.value,
+                          order.executed.comm,
+                          order.executed.size,
+                          order.data.name))
