@@ -1,4 +1,6 @@
+backtrader
 pandas
+matplotlib==3.2.2
 yfinance
 html5lib
 beautifulsoup4
