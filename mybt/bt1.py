@@ -38,6 +38,7 @@ cerebro.addanalyzer(bt.analyzers.DrawDown, _name='_DrawDown')  # 回撤
 # %%
 # 添加策略 TODO 写策略
 cerebro.addstrategy(mybt.s1.MyStrategy)
+# cerebro.optstrategy(mybt.s1.MyStrategy, myparam1=range(10, 20))  # 策略调优参数
 
 # %%
 # 启动回测
