@@ -17,7 +17,7 @@ def gen_secid(symbol):
 
 
 # 不复权
-def cn_chartbar(symbol, start=None, end=None):
+def cn_chartbar(dataname: str, start: str = None, end: str = None):
     if not start:
         start = "20100101"
     else:
@@ -26,7 +26,7 @@ def cn_chartbar(symbol, start=None, end=None):
         end = datetime.datetime.now().strftime("%Y%m%d")
     else:
         end = end.replace("-", "")
-    secid = gen_secid(symbol)
+    secid = gen_secid(dataname)
     # 不复权 : 0; 前复权 : 1; 后复权 : 2
     url = f'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid={secid}&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5' \
           f'&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101' \
@@ -36,6 +36,6 @@ def cn_chartbar(symbol, start=None, end=None):
     return json
 
 
-symbol = "SH600010"
-dt = cn_chartbar(symbol, "2022-01-01")
-print(dt)
+# symbol = "SH600010"
+# dt = cn_chartbar(symbol, "2022-01-01")
+# print(dt)
