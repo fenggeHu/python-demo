@@ -1,6 +1,6 @@
 # secid
 import datetime
-import pandas as pd
+import requests
 
 
 def gen_secid(symbol):
@@ -31,7 +31,8 @@ def cn_chartbar(symbol, start=None, end=None):
     url = f'https://push2his.eastmoney.com/api/qt/stock/kline/get?secid={secid}&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5' \
           f'&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101' \
           f'&fqt=0&beg={start}&end={end}'
-    json = pd.read_json(url)
+    req = requests.get(url, timeout=30)
+    json = req.json()
     return json
 
 
