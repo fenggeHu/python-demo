@@ -5,6 +5,16 @@ import pandas as pd
 
 
 def gen_secid(symbol):
+    if len(symbol) == 6:
+        if symbol[0] == '6':
+            symbol = 'SH' + symbol
+        elif symbol[0] == '3' or symbol[0] == '0':
+            symbol = 'SZ' + symbol
+        else:
+            raise RuntimeError(f'Symbol Err: {symbol}')
+    elif len(symbol) != 8:
+        raise RuntimeError(f'Symbol Err: {symbol}')
+
     exchange = symbol[0:2]
     code = symbol[2:]
     if exchange == "SH":
@@ -21,6 +31,7 @@ def gen_secid(symbol):
 def cn_chartbar(dataname: str, start: str = None, end: str = None):
     return chartbar_json(dataname, start, end, 0)
 
+
 # json转pandas dataframe
 def to_df(json):
     klines = json['data']['klines']
@@ -31,7 +42,8 @@ def to_df(json):
     df = df.apply(pd.to_numeric)
     return df
 
-# 
+
+#
 def chartbar_json(dataname: str, start: str = None, end: str = None, adj=0):
     if not start:
         start = "20100101"
@@ -49,7 +61,6 @@ def chartbar_json(dataname: str, start: str = None, end: str = None, adj=0):
     req = requests.get(url, timeout=30)  # request比pandas加载快
     json = req.json()
     return json
-
 
 # json = chartbar_json('SZ300760', '2020-01-01', '2022-10-25', 1)
 # df = to_df(json)
