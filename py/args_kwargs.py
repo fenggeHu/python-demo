@@ -1,12 +1,12 @@
 # py中args、kwargs用法
-def say(tag, *args, **kwargs) -> str:
+def say(tag, *args, **kwargs) -> str:  # python不会强制检查返回类型，此处指定的返回类型与实际返回值不符，不影响程序运行
     msg = f'[{tag}]: {args} ->> {kwargs}'
-    return msg
+    return tag, msg
 
 
 # 调用方式
-m1 = say('tag', 1, 2, 3, name='my name', age=28)
-print(m1)
+t, m1 = say('tag', 1, 2, 3, name='my name', age=28)
+print(t)
 # *args解包
 tpl = (1, 2, 3)
 m2 = say('tag', *tpl, name='my name', age=28)
