@@ -9,13 +9,14 @@ class Btgs1(bt.Strategy):
 
     def next(self):
         if self.data.Close > self.data.Open and self.data.Close > self.data.Close[-2]:
-            if self.position.size > 0:
-                self.buy(limit=200)
-            else:
-                self.buy(size=0.5, limit=100)
+            # if self.position.size > 0:
+            #     self.buy(size=200.0)
+            # else:
+            self.buy()
 
         elif self.data.Close < self.ma5:
-            self.sell()
+            if self.position.size > 0:
+                self.sell()
 
         # if self.data.Open >= self.data.Close:
         #     return

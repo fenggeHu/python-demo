@@ -5,6 +5,10 @@ from backtesting_py.btg1 import Btgs1
 from data import eastmoney as et
 from backtesting import Backtest
 
+# 显示所有行和列
+pd.set_option('display.width', 2000)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
 
 # run a symbol testing
 def run(strategy, symbol, start=None, end=None, plot=False):
@@ -16,7 +20,7 @@ def run(strategy, symbol, start=None, end=None, plot=False):
     df.index = df.index.map(lambda x: datetime.strptime(x, '%Y-%m-%d'))  # index必须是datetime
     bt = Backtest(df, strategy, commission=.002, exclusive_orders=True)  # backtest实例化
     stats = bt.run()  # 返回回测结果
-    print(stats)
+    print(stats['_trades'])
     if plot:
         bt.plot()  # 生成html图表展示
 
@@ -29,4 +33,4 @@ csi300['Index'] = csi300['Index'].map(lambda x: str(x).zfill(6))
 # # 设置Index列为索引
 # csi300.set_index(['Index'], inplace=True)
 for s in csi300['Index']:
-    run(Btgs1, s, '2022-09-01')
+    run(Btgs1, s, '2022-09-01', plot=True)
