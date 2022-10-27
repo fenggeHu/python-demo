@@ -10,6 +10,7 @@ pd.set_option('display.width', 2000)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
+
 # run a symbol testing
 def run(strategy, symbol, start=None, end=None, plot=False):
     json = et.chartbar_json(symbol, start, end, 1)
@@ -20,7 +21,7 @@ def run(strategy, symbol, start=None, end=None, plot=False):
     df.index = df.index.map(lambda x: datetime.strptime(x, '%Y-%m-%d'))  # index必须是datetime
     bt = Backtest(df, strategy, commission=.002, exclusive_orders=True)  # backtest实例化
     stats = bt.run()  # 返回回测结果
-    print(stats['_trades'])
+    print(stats['_trades'])  # https://kernc.github.io/backtesting.py/doc/examples/Quick%20Start%20User%20Guide.html
     if plot:
         bt.plot()  # 生成html图表展示
 
