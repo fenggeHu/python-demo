@@ -2,21 +2,18 @@ from backtesting import Backtest, Strategy
 from backtesting.lib import crossover
 from backtesting.test import SMA
 import talib
-from data import eastmoney as et
 import pandas as pd
 from datetime import datetime
 
 
 class SmaCross(Strategy):
     def init(self):
-        close = self.data.Close
+        high, low, close = self.data.High, self.data.Low, self.data.Close
         self.ma1 = self.I(SMA, close, 5)
         self.ma2 = self.I(SMA, close, 10)
         # self.bbands = self.I(talib.BBANDS, close, 5, matype=talib.MA_Type.EMA)
         # # self.dema = self.I(talib.DEMA, price, 30)
         self.rsi = self.I(talib.RSI, close, timeperiod=14)
-        # high = self.data.High
-        # low = self.data.Low
         # self.willr = self.I(talib.WILLR, high, low, close, timeperiod=14)
 
     def next(self):
