@@ -26,6 +26,8 @@ def run(strategy, symbol, start=None, end=None, plot=False):
         bt.plot()  # 生成html图表展示
 
 
+# run(Btgs1, 'SZ300760', "2022-01-01", "2022-01-31", plot=True)
+
 # HS300
 tables = pd.read_html("https://en.wikipedia.org/wiki/CSI_300_Index")
 csi300 = tables[3]
