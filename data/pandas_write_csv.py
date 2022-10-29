@@ -5,10 +5,10 @@ from pandas_datareader import data as pdr
 import yfinance as yf
 
 from data import local_csv_file
-from data.feeder import Feeder
+from data.feeder import DataFeeder
 
 
-class LocalCsvFeeder(Feeder):
+class LocalCsvFeeder(DataFeeder):
     def store(self):
         pass
 
