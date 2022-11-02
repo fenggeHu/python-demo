@@ -24,7 +24,7 @@ def run(strategy, symbol, start=None, end=None, plot=False):
     data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']  # eastmoney对应的各列名顺序
     df = data.apply(pd.to_numeric)  # 各列数据必须是数字类型
     df.index = df.index.map(lambda x: datetime.strptime(x, '%Y-%m-%d'))  # index必须是datetime
-    bt = Backtest(df, strategy, commission=.002, exclusive_orders=True)  # backtest实例化
+    bt = Backtest(df, strategy, cash=100_000, commission=.002, exclusive_orders=True)  # backtest实例化
     stats = bt.run()  # 返回回测结果
     print(stats['_trades'])  # https://kernc.github.io/backtesting.py/doc/examples/Quick%20Start%20User%20Guide.html
     if plot and stats['_trades'].size > 0:
