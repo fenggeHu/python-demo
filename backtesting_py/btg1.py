@@ -4,7 +4,7 @@ import datetime
 import talib
 
 
-class Btgs1(bt.Strategy):
+class Btgs(bt.Strategy):
     def init(self):
         self.today = str(datetime.date.today())
         close = self.data.Close
