@@ -9,12 +9,16 @@ from backtesting import Backtest
 pd.set_option('display.width', 2000)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
-
+#
+today = str(datetime.today().date())
 
 # run a symbol testing
 def run(strategy, symbol, start=None, end=None, plot=False):
     json = et.chartbar_json(symbol, start, end, 1)
     odf = et.to_df(json)
+    if len(odf) == 0 or odf.index[len(odf) - 1] != today:
+        print(f'No data: {symbol}')
+        return
     data = odf.iloc[:, :5]  # 取前5列
     data.columns = ['Open', 'Close', 'High', 'Low', 'Volume']  # eastmoney对应的各列名顺序
     df = data.apply(pd.to_numeric)  # 各列数据必须是数字类型
@@ -22,7 +26,7 @@ def run(strategy, symbol, start=None, end=None, plot=False):
     bt = Backtest(df, strategy, commission=.002, exclusive_orders=True)  # backtest实例化
     stats = bt.run()  # 返回回测结果
     print(stats['_trades'])  # https://kernc.github.io/backtesting.py/doc/examples/Quick%20Start%20User%20Guide.html
-    if plot:
+    if plot and stats['_trades'].size > 0:
         bt.plot()  # 生成html图表展示
 
 
@@ -36,4 +40,6 @@ csi300['Index'] = csi300['Index'].map(lambda x: str(x).zfill(6))
 # # 设置Index列为索引
 # csi300.set_index(['Index'], inplace=True)
 for s in csi300['Index']:
-    run(Btgs1, s, '2022-09-01', plot=True)
+    run(Btgs1, s, '2022-08-01', plot=True)
+
+print(f'finished')
