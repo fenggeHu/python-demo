@@ -1,7 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
-from backtesting_py.btg1 import Btgs1
+from backtesting_py.btg import Btgs
 from data import eastmoney as et
 from backtesting import Backtest
 
@@ -12,6 +12,7 @@ pd.set_option('display.max_rows', None)
 #
 today = str(datetime.today().date())
 
+
 # run a symbol testing
 def run(strategy, symbol, start=None, end=None, plot=False):
     json = et.chartbar_json(symbol, start, end, 1)
@@ -19,8 +20,8 @@ def run(strategy, symbol, start=None, end=None, plot=False):
     if len(odf) == 0 or odf.index[len(odf) - 1] != today:
         print(f'No data: {symbol}')
         return
-    data = odf.iloc[:, :5]  # 取前5列
-    data.columns = ['Open', 'Close', 'High', 'Low', 'Volume']  # eastmoney对应的各列名顺序
+    data = odf[['open', 'high', 'low', 'close', 'turnover']]  # 取前5列
+    data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']  # eastmoney对应的各列名顺序
     df = data.apply(pd.to_numeric)  # 各列数据必须是数字类型
     df.index = df.index.map(lambda x: datetime.strptime(x, '%Y-%m-%d'))  # index必须是datetime
     bt = Backtest(df, strategy, commission=.002, exclusive_orders=True)  # backtest实例化
@@ -40,6 +41,6 @@ csi300['Index'] = csi300['Index'].map(lambda x: str(x).zfill(6))
 # # 设置Index列为索引
 # csi300.set_index(['Index'], inplace=True)
 for s in csi300['Index']:
-    run(Btgs1, s, '2022-08-01', plot=True)
+    run(Btgs, s, '2022-08-01', plot=True)
 
 print(f'finished')
