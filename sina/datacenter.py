@@ -10,5 +10,6 @@ import pandas as pd
 jss = get_data.minline('sh601155')
 js = json.loads(jss)
 dta = js['result']['data']
+
 dt = pd.read_table(dta)
 print(dt)
