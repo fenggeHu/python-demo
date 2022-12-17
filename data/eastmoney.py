@@ -26,7 +26,6 @@ def gen_secid(symbol):
 
     return f"0.{code}"
 
-
 # 不复权
 def cn_chartbar(dataname: str, start: str = None, end: str = None):
     return chartbar_json(dataname, start, end, 0)
@@ -42,11 +41,17 @@ def to_df(json):
     df = df.apply(pd.to_numeric)
     return df
 
+# 用于strategy的列
+def to_df2(json):
+    df = to_df(json)
+    df = df[['open','high','low','close','turnover']] # 只需要这几列
+    df.columns = ['open','high','low','close','volume'] # turnover-->volume
+    return df
 
 #
 def chartbar_json(dataname: str, start: str = None, end: str = None, adj=0):
     if not start:
-        start = "20100101"
+        start = "20200101"
     else:
         start = start.replace("-", "")
     if not end:
