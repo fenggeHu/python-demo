@@ -22,6 +22,8 @@ class Btgs(bt.Strategy):
         if self.data.Volume[-1] < 1_000_000_000.0:
             return
 
+
+
         if crossover(self.ma5, self.ma10):
             self.buy()
         elif crossover(self.ma10, self.ma5):
