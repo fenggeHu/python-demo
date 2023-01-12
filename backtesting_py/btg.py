@@ -14,12 +14,12 @@ class Btgs(bt.Strategy):
 
     def next(self):
         # 只判断当天
-        if str(self.data.index[-1])[0:10] < self.today:
-            return
+        # if str(self.data.index[-1])[0:10] < self.today:
+        #     return
 
         # if self.data.High[-1] == self.data.Open[-1] and self.data.Close[-1] == self.data.Open[-1]:
         #     return
-        if self.data.Volume[-1] < 1_000_000_000.0:
+        if self.data.Volume[-1] < 100_000_000.0:
             return
 
 
