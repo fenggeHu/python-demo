@@ -45,7 +45,8 @@ def to_df(json):
 def to_df2(json):
     df = to_df(json)
     df = df[['open','high','low','close','turnover']] # 只需要这几列
-    df.columns = ['open','high','low','close','volume'] # turnover-->volume
+    df.columns = ['Open','High','Low','Close','Volume'] # turnover-->volume
+    df.index = pd.to_datetime(df.index) # 索引列转成datetime类型
     return df
 
 #

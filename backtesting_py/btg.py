@@ -23,7 +23,6 @@ class Btgs(bt.Strategy):
             return
 
 
-
         if crossover(self.ma5, self.ma10):
             self.buy()
         elif crossover(self.ma10, self.ma5):
