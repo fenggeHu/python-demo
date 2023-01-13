@@ -6,6 +6,7 @@ import talib
 
 class Btgs(bt.Strategy):
     def init(self):
+        self.minTurnover = 400_000_000_000.0
         self.today = str(datetime.date.today())
         close = self.data.Close
         self.ma5 = self.I(talib.SMA, close, 5)
@@ -19,12 +20,10 @@ class Btgs(bt.Strategy):
 
         # if self.data.High[-1] == self.data.Open[-1] and self.data.Close[-1] == self.data.Open[-1]:
         #     return
-        if self.data.Volume[-1] < 100_000_000.0:
-            return
 
-
-        if crossover(self.ma5, self.ma10):
-            self.buy()
+        if crossover(self.ma5, self.ma10) & self.ma5 < self.md20:
+            if self.data.Volume[-1] > self.minTurnover:
+                self.buy()
         elif crossover(self.ma10, self.ma5):
             self.sell()
 
