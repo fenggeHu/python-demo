@@ -21,11 +21,12 @@ class Btgs(bt.Strategy):
         # if self.data.High[-1] == self.data.Open[-1] and self.data.Close[-1] == self.data.Open[-1]:
         #     return
 
-        if crossover(self.ma5, self.ma10) & self.ma5 < self.md20:
+        if crossover(self.ma5, self.ma10) and self.ma5 < self.ma20:
             if self.data.Volume[-1] > self.minTurnover:
+                print(self.data.index[-1])
                 self.buy()
-        elif crossover(self.ma10, self.ma5):
-            self.sell()
+        # elif crossover(self.ma10, self.ma5):
+        #     self.sell()
 
     def hisMinPrice(self, n=20):
         """ get history min close"""
@@ -34,3 +35,4 @@ class Btgs(bt.Strategy):
         for i in range(1, size):
             price = min(price, self.data.Close[- i])
         return price
+
