@@ -1,3 +1,8 @@
 import eastmoney as et
+import csindex as ci
+import cn
 
-print(et.gen_secid('SH600016'))
+csi = ci.cnSecurityIndustry()
+for v in csi:
+    charts = et.cn_chartbar(cn.codeToSymbol(v['securityCode']))
+    print(len(charts))
