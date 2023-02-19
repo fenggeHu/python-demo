@@ -1,9 +1,12 @@
-import math
+# Python特殊的算术运算符
+# /	除 - x 除以 y   21/10=2.1
+# **	幂 - 返回x的y次幂  2**4=16
+# //	取整除 - 向下取接近商的整数  21//10=2
 
 for j in range(1000, 9999):
     g = j % 10
     s = j // 10 % 10
     b = j // 100 % 10
     q = j // 1000
-    if j == math.pow(g, 4) + math.pow(s, 4) + math.pow(b, 4) + math.pow(q, 4):
+    if j == g ** 4 + s ** 4 + b ** 4 + q ** 4:
         print("%d : %d %d %d %d", j, q, b, s, g)
